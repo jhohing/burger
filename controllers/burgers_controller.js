@@ -1,14 +1,13 @@
-const express = require("express");
+var express = require("express");
 
-const router = express.Router();
+var router = express.Router();
 
 //Import the model (burger.js) to use the db functions
-const burger = require("../models/burger.js");
+var burger = require("../models/burger.js");
 
 //Routes
 
 router.get("/", (req, res) => {
-    console.log("BURGER");
     burger.selectAll(data => {
         var hbsobject = {
             burger: data
@@ -19,8 +18,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/api/burger", (req, res) => {
-    burger.insertOne("burger_name", req.body.burger_name, 
-    function (result) {
+    burger.insertOne("burger_name", req.body.burger_name, result => {
         res.json({id: result.insertId})
     });
 });

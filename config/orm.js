@@ -9,18 +9,9 @@ var orm = {
         });
     },
     insertOne: (table, column, value, cb) => {
-        var queryString = "INSERT INTO " + table;
+        var queryString = "INSERT INTO ?? (??) VALUES (?)";
 
-        queryString += "(";
-        queryString += column.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString += printQuestionMarks(value.length);
-        queryString += ")";
-
-        console.log(queryString);
-
-        connection.query(queryString, value, (err, result) => {
+        connection.query(queryString, [table, column, value], (err, result) => {
             if (err) throw err;
             cb(result);
         });
